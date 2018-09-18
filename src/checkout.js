@@ -13,7 +13,7 @@ const checkout = async (options = {}) => {
 
   if (!pool) {
     pool = new Pool(options)
-    pool.on('error', options.log)
+    pool.on('error', log)
   }
   client = await pool.connect()
   return client

@@ -3,7 +3,8 @@ const format = require('./format')
 
 const defaultOptions = {
   camelCase: true,
-  head: false
+  head: false,
+  pool: {}
 }
 
 const query = async (...args) => {
@@ -12,7 +13,7 @@ const query = async (...args) => {
     options = values
   }
 
-  const client = await checkout(options)
+  const client = await checkout(options.pool || {})
   const data = await client.query(command, values)
     .catch(error => {
       throw error
