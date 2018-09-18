@@ -1,0 +1,12 @@
+{
+  "name": "postgres-tools",
+  "version": "0.0.1",
+  "main": "src/index.js",
+  "license": "MIT",
+  "dependencies": {
+    "lodash.camelcase": "^4.3.0",
+    "lodash.snakecase": "^4.1.1",
+    "pg-pool": "^2.0.3",
+    "postgres-array": "^1.0.3"
+  }
+}
