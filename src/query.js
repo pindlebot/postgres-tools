@@ -2,12 +2,13 @@ const checkout = require('./checkout')
 const format = require('./format')
 
 const defaultOptions = {
-  camelCase: true
+  camelCase: true,
+  head: false
 }
 
 const query = async (...args) => {
   let [command, values = [], options = defaultOptions] = args
-  if (!Array.isArray(values) && typeof values === 'object') {
+  if (values && !Array.isArray(values) && typeof values === 'object') {
     options = values
   }
 
@@ -17,7 +18,7 @@ const query = async (...args) => {
       throw error
     })
 
-  return options.camelCase ? format(data, options) : data
+  return format(data, options)
 }
 
 module.exports = query

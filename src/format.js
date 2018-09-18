@@ -31,10 +31,19 @@ const formatRow = interceptor => row => {
 const format = (data, options = {}) => {
   const interceptor = options.interceptor || function() {}
   const head = options.head || false
+  const useCamelCase = options.camelCase || true
+
   const { rows } = data
+
+  if (!useCamelCase) {
+    return (head && rows && rows.length)
+      ? rows[0]
+      : rows
+  }
+
   if (rows && rows.length) {
     rows = rows.map(formatRow(interceptor))
-    return head && rows.length === 1 ? rows[0] : rows
+    return head && rows.length ? rows[0] : rows
   }
   return head ? null : []
 }
