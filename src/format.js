@@ -11,9 +11,6 @@ const formatRow = interceptor => row => {
 
   return keys.reduce((acc, key) => {
     let field = camelCase(key)
-    // if (camelCaseKey.endsWith('Id')) {
-    //  camelCaseKey = camelCaseKey.slice(0, camelCaseKey.length - 2)
-    // }
     let td = row[key]
     if (typeof td === 'string' && /^\{.*\}$/g.test(td)) {
       td = pgArray.parse(td)
