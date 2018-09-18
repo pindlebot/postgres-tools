@@ -11,19 +11,19 @@ const formatRow = interceptor => row => {
 
   return keys.reduce((acc, key) => {
     let field = camelCase(key)
-    let td = row[key]
-    if (typeof td === 'string' && /^\{.*\}$/g.test(td)) {
-      td = pgArray.parse(td)
+    let value = row[key]
+    if (typeof value === 'string' && /^\{.*\}$/g.test(value)) {
+      value = pgArray.parse(value)
     }
     if (isDate(td)) {
-      td = td.toISOString()
+      value = value.toISOString()
     }
     let tapped = interceptor(key, value)
     if (tapped) {
       field = tapped[0]
-      td = tapped[1]
+      value = tapped[1]
     }
-    acc[field] = td
+    acc[field] = value
     return acc
   }, {})
 }
