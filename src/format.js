@@ -15,7 +15,7 @@ const formatRow = interceptor => row => {
     if (typeof value === 'string' && /^\{.*\}$/g.test(value)) {
       value = pgArray.parse(value)
     }
-    if (isDate(td)) {
+    if (isDate(value)) {
       value = value.toISOString()
     }
     let tapped = interceptor(key, value)
@@ -33,7 +33,7 @@ const format = (data, options = {}) => {
   const head = options.head || false
   const useCamelCase = options.camelCase || true
 
-  const { rows } = data
+  let { rows } = data
 
   if (!useCamelCase) {
     return (head && rows && rows.length)
@@ -43,7 +43,7 @@ const format = (data, options = {}) => {
 
   if (rows && rows.length) {
     rows = rows.map(formatRow(interceptor))
-    return head && rows.length ? rows[0] : rows
+    return head ? rows[0] : rows
   }
   return head ? null : []
 }

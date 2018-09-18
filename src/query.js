@@ -4,17 +4,14 @@ const format = require('./format')
 const defaultOptions = {
   camelCase: true,
   head: false,
-  pool: {}
+  pool: {},
+  values: []
 }
 
 const query = async (...args) => {
-  let [command, values = [], options = defaultOptions] = args
-  if (values && !Array.isArray(values) && typeof values === 'object') {
-    options = values
-  }
-
+  let [command, options = defaultOptions] = args
   const client = await checkout(options.pool || {})
-  const data = await client.query(command, values)
+  const data = await client.query(command, options.values || [])
     .catch(error => {
       throw error
     })
