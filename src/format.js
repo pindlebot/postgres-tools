@@ -29,7 +29,7 @@ const formatRow = interceptor => row => {
 }
 
 const format = (data, options = {}) => {
-  const interceptor = options.interceptor || function() {}
+  const interceptor = options.interceptor || function () {}
   const head = options.head || false
   const useCamelCase = options.camelCase || true
 

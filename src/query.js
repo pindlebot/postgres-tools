@@ -8,13 +8,14 @@ const defaultOptions = {
   values: []
 }
 
-const query = async (...args) => {
-  let [command, options = defaultOptions] = args
+const query = async (command, values = [], options = defaultOptions) => {
   const client = await checkout(options.pool || {})
-  const data = await client.query(command, options.values || [])
-    .catch(error => {
-      throw error
-    })
+  let data
+  try {
+    data = await client.query(command, values)
+  } catch (err) {
+    throw err
+  }
 
   return format(data, options)
 }
